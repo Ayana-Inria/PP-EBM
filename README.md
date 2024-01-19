@@ -2,6 +2,9 @@
 
 ## Todo
 - [ ] cleanup useless code elements
+- [ ] write documentation
+- [ ] provide pretrained model files
+- [ ] provide model config files
 
 ## Installation
 - to compute metrics install [dota devkit](https://github.com/CAPTAIN-WHU/DOTA_devkit) in `data/` (see installation for more info)
