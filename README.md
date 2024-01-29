@@ -23,6 +23,15 @@ python setup.py build_ext --inplace
 - conda env is provided `env.yml`, setup using `conda env create -f env.yml`
 
 
+## Results
+
+Results with model [mppe_dota_LMM_0305d](model_configs/mppe/dota/mppe_dota_LMM_0305d.yaml) on sample data from ADS.
+![Alt text](examples/ads/p0005_mpp+cnn_B.png)
+
+
+Results details, with right plot showing to data and prior scores correspondence to color 
+![Alt text](examples/ads/p0005_mpp+cnn_B_details.png)![Alt text](examples/ads/p0005_mpp+cnn_B_scoresplot.png)
+
 ## Repo structure
 
 - [saved_models](saved_models): saved models that can be used for inference (use setup in [paths_config.yaml](paths_config.yaml))
@@ -30,9 +39,18 @@ python setup.py build_ext --inplace
 - [model_configs](model_configs): config files for models
 
 
+## Usage example
+
+```bash
+# training (use -o to overwrite existing model)
+python main.py -p train mppe_dota_LMM_305d.yaml
+# inferrence and evalution
+python main.py -p inferval mppe_dota_LMM_305d
+# making some figures
+python tools/figures_results.py
+```
+
 ## External resources
 - [Minitel font](https://github.com/Zigazou/Minitel-Canvas) (CC0 license)
 
-## Todo
-- [ ] cleanup code
-- [ ] finish documentation
+

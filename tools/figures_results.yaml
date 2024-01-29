@@ -1,0 +1,154 @@
+dataset_path: 'data_sample/DOTA_gsd50_smol'
+save_path: 'figures'
+inference_path: 'data_sample/inferrence'
+
+datasets:
+  DOTA_gsd50_smol:
+    name: base
+
+use_cache: true
+
+iou_thresholds:
+  - 0.25
+  - 0.50
+
+pr_limits:
+  x: [0,1]
+  y: [0.4,1]
+
+gt:
+  draw_args:
+    color: 'white'
+
+show_thresh_pr: false
+
+models:
+  bba_vec-01:
+    name: bbavec
+#    threshold: 0.00
+    show_labels: false
+    draw_args:
+      color: 'tab:blue'
+  yolov5_obb_1:
+    name: yoloV5
+    show_labels: false
+    draw_args:
+      color: 'tab:cyan'
+  naive_dota_0002:
+    name: cnn
+#    threshold: -1.0
+    show_labels: false
+    draw_args:
+      color: 'tab:orange'
+  mppe_dota_LMF_0305c2:
+    name: mpp+cnn_A
+#    threshold: 0.004
+    show_labels: true
+    draw_args:
+      color: 'tab:red'
+  mppe_dota_LMM_0305d:
+    name: mpp+cnn_B
+#    threshold: 0.008
+    show_labels: true
+    draw_args:
+      color: 'tab:pink'
+#  mppe_dota_LMM_0307b:
+#    name: mpp+cnn_C
+#    show_labels: true
+#    draw_args:
+#      color: 'tab:purple'
+
+
+draw_args:
+  fill: false
+  color: white
+  lw: 1.5
+
+pr_draw_args:
+  lw: 1.5
+  alpha: 0.9
+
+patches:
+  1983:
+    crop: [0.85,0.16,0.25]
+  1911:
+    crop: [0.75,0.6,0.4]
+  1512:
+    crop: [0.65,0.75,0.2]
+  882:
+    crop: [0.6,0.3,0.3]
+  1051:
+    crop: [0.72,0.16,0.5]
+  2570:
+    crop: [0.9,0.1,0.2]
+  2608:
+    crop: [ 0.7,0.43,0.2 ]
+  47:
+    crop: [ 0.43, 0.5, 0.1 ]
+  86:
+    crop: [ 0.5, 0.6, 0.5 ]
+  261:
+    crop: [ 0.80,0.50,0.4 ]
+  375:
+    crop: [ 0.5, 0.4, 0.5 ]
+  1478:
+    crop: [ 0.35,0.65,0.4 ]
+  1957:
+    crop: [0.2,0.4,0.3]
+  2068:
+    crop: [ 0.5,0.3,0.3 ]
+
+
+
+metrics_source: '/home/jmabon/Documents/REPOS_JM/object_detection_and_tracking/figures/metrics/240112/PR_data.yaml'
+metrics_table:
+  models:
+    bba_vec-01: '\modelbba'
+    yolov5_obb_1: '\modelyolo'
+    naive_dota_0002: '\modelcnn'
+    mppe_dota_LMF_0305c2: '\modelmppa'
+    mppe_dota_LMM_0305d: '\modelmppb'
+  keys:
+    - name: '\(\text{AP}_{0}\)'
+      dataset: 'DOTA_gsd50_smol2'
+      thresh: 0.25
+    - name: '\(\text{AP}_{N}\)'
+      dataset: 'DOTA_gsd50_smol2_d1'
+      thresh: 0.25
+
+sub_scores:
+  log_scores: true
+  color_interp: nearest
+  color_mode: anchor
+  draw_args:
+    fill: false
+    color: white
+    lw: 1.5
+    alpha_fill: 0.25
+  colors:
+    - anchor: [0.4,1.0] #md,hp
+      color: yellow
+    - anchor: [ 0,1 ]
+      color: yellow
+    - anchor: [1.0,0.4] #hd,mp
+      color: blue
+    - anchor: [ 1,0 ]
+      color: blue
+    - anchor: [0,0] #ld,lp
+      color: purple
+    - anchor: [1,1]
+      color: green
+#    - anchor: [0.5,0.5]
+#      color: cyan
+
+
+#    - anchor: [0,0] #bl
+#      color: [0.8,0.8,0.8]
+#    - anchor: [1,0] #br
+#      color: red
+#    - anchor: [1,1] #tr
+#      color: green
+#    - anchor: [0,1] #tl
+#      color: blue
+#    - anchor: [0.5,0.5] #center
+#      color: [0.5,0.5,0.5]
