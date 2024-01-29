@@ -1,0 +1,205 @@
+name: mppe_dota_LMM_0305d
+desc: mppe_dota_LMF_0305c, positive overlap thresholds
+arch: MPPEnergy
+data_loader:
+  dataset: DOTA_gsd50_smol2
+  dataset_update_interval: 100000
+  patch_maker_params:
+    patch_size: 128
+    n_patches: 2048
+    n_patches_val: 64
+    unf_sampler_weight: 0.2
+    obj_sampler_weight: 0.8
+    obj_sampler_sigma: 10
+  extract_patch_args:
+    pad_value: 0.0
+  augmentation: medium_static
+  sampler:
+    n_samples: 64
+    samples_renew_rate: 0.1
+optimizer: SGD
+optimizer_params:
+  lr: 0.002
+  momentum: 0.9
+  weight_decay: 0.0005
+scheduler: ExponentialLR
+scheduler_params:
+  gamma: 0.99
+  verbose: true
+model:
+  check_gradients: false
+  data_energy: CNNEnergies
+  data_energy_params:
+    mpp_data_net: mppdatanet_006
+    position_softplus: true
+    mark_logsoftmax: true
+    softplus_bias: true
+    freeze: true
+  energy_combinator: LinearCombinator
+  energy_combinator_params:
+    init_ones: false
+    bias: true
+  priors:
+  - Align:
+      prior_name: align_0
+      max_dist: 16
+      reduce: min
+      no_neighbors_energy: 0.0
+      quality_function: align_neg_cos
+      quality_function_args:
+        align_90deg: false
+        offset: 0.0
+        v_min: -1
+        v_max: 0
+  - Align:
+      prior_name: align_90
+      max_dist: 16
+      reduce: min
+      no_neighbors_energy: 0.0
+      quality_function: align_neg_cos
+      quality_function_args:
+        align_90deg: false
+        offset: 1.5707963267948966
+        v_min: -1
+        v_max: 0
+  - Align:
+      prior_name: align_0_max
+      max_dist: 16
+      reduce: max
+      no_neighbors_energy: 0.0
+      quality_function: align_neg_cos
+      quality_function_args:
+        align_90deg: false
+        offset: 0.0
+        v_min: 0
+        v_max: 1
+  - Align:
+      prior_name: align_90_max
+      max_dist: 16
+      reduce: max
+      no_neighbors_energy: 0.0
+      quality_function: align_neg_cos
+      quality_function_args:
+        align_90deg: false
+        offset: 1.5707963267948966
+        v_min: 0
+        v_max: 1
+  - ShapeOverlap:
+      prior_name: overlap
+      max_dist: 16
+      shape: rectangle
+      intersect_method: dividing_axis
+      quality_function: Relu
+      quality_function_args:
+        trainable: true
+        positive_bias: true
+        soft: true
+        bias_value: 0.0
+  - Repulsive:
+      prior_name: attractive
+      max_dist: 16
+      use_gap: true
+      attractive: true
+      quality_function: Relu
+      quality_function_args:
+        trainable: true
+        positive_bias: true
+        soft: true
+        bias_value: 0.0
+  - Repulsive:
+      prior_name: repulsive
+      max_dist: 16
+      use_gap: true
+      attractive: false
+      quality_function: Relu
+      quality_function_args:
+        trainable: true
+        positive_bias: true
+        soft: true
+        bias_value: 0.0
+  - GaussianMixturePrior:
+      prior_name: ratioarea_car
+      target_value: ratio-area
+      mu:
+      - 0.46
+      - 42.0
+      sigma:
+      - 0.1
+      - 20.0
+      learn_mu: true
+      learn_sigma: true
+  - GaussianMixturePrior:
+      prior_name: ratioarea_truck
+      target_value: ratio-area
+      mu:
+      - 0.23
+      - 123.0
+      sigma:
+      - 0.1
+      - 20.0
+      learn_mu: true
+      learn_sigma: true
+  - ConstantNeighbor:
+      value: 1.0
+      max_dist: 16
+trainer:
+  type: MPPTrainer
+  n_epochs: 512
+  batch_size: 16
+  figure_interval: 4
+  save_interval: 1
+  reduce: sum
+  fast_energy_delta_compute: false
+  gt_as_init: 0.0
+  memory_size: 1
+  memory_proba: 0.99
+  memorise_mc_metadata: true
+  gt_noise_sigma:
+  - 0.1
+  - 0.1
+  - 0.1
+  - 0.1
+  - 0.1
+  match_intensity: true
+  log_states: true
+  random_configurations_sampling: sampler
+  rjmcmc_params_override:
+    start_temperature: constant
+    end_temperature:
+    - 1.0
+    - 0.01
+    - 0.0001
+    steps_per_pixel: 0.02
+    n_samples_autoscale: 10
+    kernel_weights:
+      birth: 0.25
+      death: 0.25
+      transform: 0.5
+      diffusion: 0.0
+  analysis_at_inference: true
+  draw_method: rectangle
+  regul_method: NormEnergy
+  regul_args:
+    weight: 1.0
+RJMCMC_params:
+  start_temperature: auto
+  end_temperature: 1.0e-06
+  max_points_per_pixel: 0.02
+  scale_temperature: true
+  transform_sigma:
+  - 0.5
+  - 0.5
+  - 0.1
+  - 0.1
+  - 0.1
+  steps_per_pixel: 0.5
+  max_move_distance: 8
+  diffusion_dt: 0.1
+  sampling_temperature: 0.5
+  uniform_sampling: false
+  sampler_density_w_marks: true
+  kernel_weights:
+    birth: 0.25
+    death: 0.25
+    transform: 0.5
+    diffusion: 0.0

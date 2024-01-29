@@ -1,0 +1,28 @@
+
+RJMCMC_params:
+  sampling_temperature: 0.5
+  steps_per_pixel: 2.0
+  start_temperature: 0.1
+  scale_temperature: true
+  end_temperature: 1.e-10
+  init_state: 'empty'
+  kernel_weights:
+    birth: 0.25
+    death: 0.25
+    transform: 0.0
+    diffusion: 0.5
+  #    diffusion_dt: 0.1
+  diffusion_dt: 0.05
+  diffusion_dt_final: 0.05
+  diffusion_decay: exponential
+  intensity: 0.0001
+  n_samples_autoscale: 32
+  cell_pick_method: prune
+  cell_pick_n : 8
+energy_infer_args:
+  cut_and_stitch: false
+  pad_to_size: true
+#local_max_sampler_sampling_temperature: 2.0
+#local_max_distance: 2
+#local_max_thresh: 0.1
+#sampler_density_w_marks: True

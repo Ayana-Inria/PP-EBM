@@ -1,0 +1,7 @@
+# possible dataset storage directories
+dataset_path:
+  - /path/to_datasets/
+
+# possible model storage directories
+model_path:
+  - saved_models

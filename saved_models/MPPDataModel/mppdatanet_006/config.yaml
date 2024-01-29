@@ -1,0 +1,51 @@
+name: mppdatanet_006
+desc: like 4 + more encoding process layers + learns heatmap
+arch: MPPDataModel
+data_loader:
+  dataset: DOTA_gsd50_wEmpty
+  dataset_update_interval: 8
+  patch_maker_params:
+    patch_size: 128
+    n_patches: 16384
+    unf_sampler_weight: 0.33
+    obj_sampler_weight: 0.66
+    obj_sampler_sigma: 10
+  augment_params:
+    aug_level: strong
+    hist_match_images: true
+  mark_class_sigma: 1.0
+trainer:
+  type: EnergyMapTrainer
+  n_epochs: 512
+  save_interval: 8
+  batch_size: 64
+  figure_interval: 8
+loss: PosAndShapeCriterion
+loss_params:
+  vector_distance_to_center: 8
+  blob_sigma: 0.6
+  learn_masked_vector: true
+  heatmap_loss: true
+optimizer: Adam
+optimizer_params:
+  lr: 0.001
+model:
+  hidden_dims:
+  - 64
+  - 128
+  - 256
+  - 512
+  marks_classes: 32
+  encoding_process_depth: 2
+  skip_linear: false
+  marks:
+    width:
+      min: 1
+      max: 16
+    length:
+      min: 1
+      max: 48
+    angle:
+      min: 0
+      max: 3.14159265359
+      cyclic: true
