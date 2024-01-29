@@ -50,6 +50,14 @@ python main.py -p inferval mppe_dota_LMM_305d
 python tools/figures_results.py
 ```
 
+```bash
+# compute subscores
+python tools/compute_subscores.py
+# show subscores resutls
+python tools/figures_subscores.py
+```
+
+
 ## External resources
 - [Minitel font](https://github.com/Zigazou/Minitel-Canvas) (CC0 license)
 

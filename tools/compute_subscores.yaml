@@ -1,0 +1,15 @@
+datasets:
+ - DOTA_gsd50_smol
+
+models_path: 'saved_models'
+data_path: 'data_sample'
+inference_path: 'data_sample/inferrence'
+
+overwrite: false
+use_buffer: true
+
+models:
+  mppe_dota_LMM_0305d:
+
+patches:
+  - 1983
