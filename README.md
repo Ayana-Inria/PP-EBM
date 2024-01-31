@@ -61,4 +61,5 @@ python tools/figures_subscores.py
 ## External resources
 - [Minitel font](https://github.com/Zigazou/Minitel-Canvas) (CC0 license)
 
-
+# Todo:
+- [ ] paper references
