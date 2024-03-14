@@ -1,6 +1,28 @@
 # Combining Convolutional Neural Networks and Point Process for object detection
 
 
+This code was used to produce the results shown in:
+> Mabon, J.; Ortner, M.; Zerubia, J. Learning Point Processes and Convolutional Neural Networks for Object Detection in Satellite Images. Remote Sens. 2024, 16, 1019. https://doi.org/10.3390/rs16061019
+
+If you use this code, we strongly suggest you cite:
+```
+@Article{rs16061019,
+AUTHOR = {Mabon, Jules and Ortner, Mathias and Zerubia, Josiane},
+TITLE = {Learning Point Processes and Convolutional Neural Networks for Object Detection in Satellite Images},
+JOURNAL = {Remote Sensing},
+VOLUME = {16},
+YEAR = {2024},
+NUMBER = {6},
+ARTICLE-NUMBER = {1019},
+URL = {https://www.mdpi.com/2072-4292/16/6/1019},
+ISSN = {2072-4292},
+DOI = {10.3390/rs16061019}
+}
+```
+
+For further details you can refer to: 
+> Jules Mabon. Learning stochastic geometry models and convolutional neural networks. Application to multiple object detection in aerospatial data sets. Signal and Image Processing. Université Côte d'Azur, 2023. English. https://theses.hal.science/tel-04404849
+
 ## Installation
 
 ### Conda env
@@ -61,5 +83,3 @@ python tools/figures_subscores.py
 ## External resources
 - [Minitel font](https://github.com/Zigazou/Minitel-Canvas) (CC0 license)
 
-# Todo:
-- [ ] paper references
